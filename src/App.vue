@@ -5,7 +5,9 @@
 <template>
   <div class="container">
     <Top/>
-    <Context/>
+    <div class="content">
+      <router-view></router-view>
+    </div>
     <Bottom/>
   </div>
 </template>

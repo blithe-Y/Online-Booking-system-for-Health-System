@@ -31,6 +31,7 @@
   display: flex;
   bottom: 0;
   justify-content: center;
+  border-top: #eee solid 2px;
 }
 .container {
   width: 90%;

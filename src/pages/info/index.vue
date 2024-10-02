@@ -3,9 +3,9 @@
 </script>
 
 <template>
- <div class="container">
- hahahahahahahahahh
- </div>
+  <div class="container">
+    我是详情
+  </div>
 </template>
 
 <style scoped>

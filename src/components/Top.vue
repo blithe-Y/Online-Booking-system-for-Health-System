@@ -26,14 +26,14 @@
 .top {
   width: 100%;
   left: 0;
-  height: 80px;
+  height: 75px;
   top: 0;
   position: fixed;
   z-index: 999;
   display: flex;
   justify-content: center;
-  background-color: rgb(242, 246, 254);
-  border-bottom: #eee solid 1px;
+  background-color: #fff;
+  border-bottom: #eee solid 2px;
 }
 .container {
   width: 90%;
@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     img {
-      height: 75%;
+      height: 70%;
     }
     p {
       margin-left: 15px;
@@ -58,7 +58,7 @@
     div {
       margin: 0 10px;
       p {
-        color: #55a6fe;
+        color: dimgray;
       }
     }
   }
