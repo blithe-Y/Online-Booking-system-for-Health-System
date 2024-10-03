@@ -14,7 +14,7 @@ const input = ref('')
     >
       <template #suffix>
         <el-button slot="append">
-          搜 索
+          搜索
         </el-button>
       </template>
     </el-input>
