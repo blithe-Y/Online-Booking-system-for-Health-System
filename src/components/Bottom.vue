@@ -42,7 +42,7 @@
     align-items: center;
     p {
       margin:0 15px;
-      font-size: 16px;
+      font-size: 14px;
     }
   }
   .right {
@@ -52,6 +52,8 @@
       margin: 0 10px;
       color: dimgray;
       text-decoration: none;
+      font-size: 14px;
+
     }
   }
 }
