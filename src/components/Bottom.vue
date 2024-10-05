@@ -26,8 +26,9 @@
 
 <style scoped>
 .bottom {
+  position: fixed;
   width: 100%;
-  height: 60px;
+  height: 50px;
   display: flex;
   bottom: 0;
   justify-content: center;
@@ -37,6 +38,7 @@
   width: 90%;
   display: flex;
   justify-content: space-between;
+  background-color: #fff;
   .left {
     display: flex;
     align-items: center;
