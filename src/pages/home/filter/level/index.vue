@@ -1,6 +1,54 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import {reqDictcode} from "@/api/home";
+import {onMounted} from "vue";
+import type {DictData, DictObject} from "@/api/home/type";
+
+const emits = defineEmits();
+onMounted(()=>{
+  getHostype();
+  // addLevelClickListeners();
+})
+
+const hasHostypeArr = ref<DictData>([]);
+
 const size = ref(16)
+
+const getHostype = async () => {
+  let result:DictObject = await reqDictcode('Hostype');
+  if(result.code === 200){
+    console.log(result)
+    hasHostypeArr.value = result.data;
+    console.log(hasHostypeArr.value);
+  }
+}
+
+let activeFlag = ref<string>('')
+
+const changeLevel = (level:string) => {
+  console.log(level)
+}
+
+const addLevelClickListeners = () => {
+  const level = document.querySelector(".level");
+  if(level){
+    level.addEventListener("click", (event) => {
+      if(event.target){
+        const target = event.target as HTMLElement;
+        if (target.classList.contains("clickable")){
+          const allLevel = document.querySelectorAll(".clickable");
+          allLevel.forEach(eachLevel=>{
+            eachLevel.classList.remove("active");
+          })
+          target.classList.add("active");
+          emits('select', target.id)
+        }
+      }
+
+      // console.log(target);
+    })
+  }
+}
 </script>
 
 <template>
@@ -10,10 +58,10 @@ const size = ref(16)
         <el-text class="mx-1" type="info">等级：</el-text>
       </el-col>
       <el-col :span="22">
-        <el-space wrap :size="size">
-          <el-text class="clickable active">全部</el-text>
-          <div v-for="i in 5" :key="i">
-            <el-text class="clickable">三级甲等</el-text>
+        <el-space wrap :size="size" class="level">
+          <el-text :class="['clickable', {active:activeFlag === ''}]">全部</el-text>
+          <div v-for="(item,index) in hasHostypeArr" :key="index">
+            <el-text class="clickable" :id="item.value" @click="changeLevel(item.value)">{{item.name}}</el-text>
           </div>
         </el-space>
       </el-col>

@@ -11,7 +11,9 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "element-plus": "^2.8.4",
+    "emits": "^3.0.0",
     "vue": "^3.4.29",
     "vue-router": "^4.4.5"
   },
