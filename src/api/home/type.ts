@@ -90,3 +90,28 @@ export type DictData = HospitalData[];
 
 export interface DictObject extends RootObject<DictData> {
 }
+
+export interface HospitalInfoData {
+    id: string;
+    createTime: string;
+    updateTime: string;
+    isDeleted: number;
+    param: {};
+    hoscode: string;
+    hosname: string;
+    hostype: string;
+    provinceCode: string;
+    cityCode: string;
+    districtCode: string;
+    address: string;
+    logoData: string;
+    intro: string;
+    route: string;
+    status: number;
+    bookingRule: BookingRule;
+}
+
+export type SearchData = HospitalInfoData[];
+
+export interface HospitalInfoObject extends RootObject<SearchData> {
+}

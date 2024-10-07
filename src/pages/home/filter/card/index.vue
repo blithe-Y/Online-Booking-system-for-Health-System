@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import {useRouter} from "vue-router";
+
 defineProps(['hospitalInfo'])
+let $router = useRouter()
+
+const goDetail = () => {
+  $router.push('/info');
+}
 </script>
 
 <template>
     <el-col :span="12">
-      <el-card shadow="hover" style="margin-bottom: 20px;">
+      <el-card shadow="hover" style="margin-bottom: 20px;" @click="goDetail">
         <el-row :gutter="30" class="row-center">
           <el-col :span="16" class="left">
             <div class="top">

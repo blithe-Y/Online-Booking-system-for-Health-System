@@ -1,23 +1,75 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
+import type {Content, HospitalInfoData, HospitalInfoObject, SearchData} from "@/api/home/type";
+import {reqHospitalInfo} from "@/api/home";
+import {useRouter} from "vue-router";
 const input = ref('')
+let hospitalInfoList = ref<SearchData>([])
+
+let $router = useRouter();
+
+const fetchData = async (keyword: string, cb: any) => {
+  let result:HospitalInfoObject = await reqHospitalInfo(keyword);
+  // console.log("hi")
+  // console.log(result.data);
+  let showData = result.data.map(item => {
+    return {
+      value: item.hosname,
+      hoscode:item.hoscode
+    }
+  })
+  cb(showData)
+}
+
+const goDetail = (item:any) => {
+  $router.push({path:'/info'})
+}
+// const addHospitalInfoListener = async () => {
+//
+// }
+
+// const querySearch = (queryString: string, cb: any) => {
+//   const results = hospitalInfoList.value
+//   // call callback function to return suggestions
+//   cb(results)
+// }
+
+// const loadAll = () => {
+//   hospitalInfoList.value.forEach((item) => {
+//     hospitalNames.value.push(item.hosname);
+//   });
+//   console.log(hospitalNames.value);
+//   return hospitalNames;
+// }
+
+
+
+</script>
+
+<script lang="ts">
+  export default {
+    name:'Search'
+  }
 </script>
 
 <template>
   <div class="search-box">
-    <el-input
+    <el-autocomplete
         v-model="input"
         style="width: 800px;height: 40px"
         placeholder="请输入医院名称"
+        :trigger-on-focus="false"
+        :fetch-suggestions="fetchData"
         :prefix-icon="Search"
+        @select="goDetail"
     >
       <template #suffix>
         <el-button slot="append">
           搜索
         </el-button>
       </template>
-    </el-input>
+    </el-autocomplete>
   </div>
 
 </template>

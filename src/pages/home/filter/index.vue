@@ -56,7 +56,7 @@
 
 <template>
   <el-text class="mx-1" size="large" tag="b">医院</el-text>
-  <Level @select="updateSelectedLevel"/>
+  <Level @getLevel="updateSelectedLevel"/>
   <Region @select="updateSelectedRegion"/>
   <div class="hospital">
     <el-row :gutter="20">
