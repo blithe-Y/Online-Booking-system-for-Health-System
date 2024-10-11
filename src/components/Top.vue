@@ -7,7 +7,7 @@
     <div class="container">
       <div class="left">
         <img src="@/assets/images/img.png" alt="">
-        <p>医院预约挂号统一平台</p>
+        <a href="/home"><p>医院预约挂号统一平台</p></a>
       </div>
       <div class="right">
         <div>
@@ -45,9 +45,13 @@
     img {
       height: 70%;
     }
+    a {
+      text-decoration: none;
+      color: #000;
+      font-size: 20px;
+    }
     p {
       margin-left: 15px;
-      font-size: 20px;
       font-weight: bold;
 
     }

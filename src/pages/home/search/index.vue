@@ -11,8 +11,6 @@ let $router = useRouter();
 
 const fetchData = async (keyword: string, cb: any) => {
   let result:HospitalInfoObject = await reqHospitalInfo(keyword);
-  // console.log("hi")
-  // console.log(result.data);
   let showData = result.data.map(item => {
     return {
       value: item.hosname,
@@ -23,25 +21,8 @@ const fetchData = async (keyword: string, cb: any) => {
 }
 
 const goDetail = (item:any) => {
-  $router.push({path:'/info'})
+  $router.push({path:'/info/register', query:{hoscode:item.hoscode}})
 }
-// const addHospitalInfoListener = async () => {
-//
-// }
-
-// const querySearch = (queryString: string, cb: any) => {
-//   const results = hospitalInfoList.value
-//   // call callback function to return suggestions
-//   cb(results)
-// }
-
-// const loadAll = () => {
-//   hospitalInfoList.value.forEach((item) => {
-//     hospitalNames.value.push(item.hosname);
-//   });
-//   console.log(hospitalNames.value);
-//   return hospitalNames;
-// }
 
 
 
