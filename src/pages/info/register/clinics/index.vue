@@ -23,7 +23,7 @@ console.log(departments)
         <el-text tag="b" size="large" class="title">{{item.depname}}</el-text>
         <div class="more-clinics">
           <el-row :gutter="20">
-            <el-col :span="7" v-for="(child, index) in item.children" :key="index">
+            <el-col :span="8" v-for="(child, index) in item.children" :key="index">
               <el-text type="info" class="text">{{child.depname}}</el-text>
             </el-col>
           </el-row>
@@ -65,8 +65,7 @@ ul {
 .detail{
   margin-top:20px;
   padding:25px;
-  width: 90%;
-  min-height: 210px;
+  //min-height: 210px;
   background-color: #fafafa;
   border-radius: 15px;
   .title{
