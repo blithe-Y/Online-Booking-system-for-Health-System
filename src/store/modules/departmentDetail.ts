@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type {DepartmentData, DepartmentObject, HospitalDetailObject} from "@/api/info/type";
+import type {Department, DepartmentData, DepartmentObject, HospitalDetailObject} from "@/api/info/type";
 import {reqDepartment, reqHospitalDetail} from "@/api/info";
 import type {DepartmentState} from "./interface";
 

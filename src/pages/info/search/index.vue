@@ -5,6 +5,7 @@
 <template>
   <div>
     查询/取消
+    <el-empty description="暂无内容" />
   </div>
 </template>
 

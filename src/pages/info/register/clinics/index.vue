@@ -1,26 +1,59 @@
 <script setup lang="ts">
 import useDepartmentStore from "@/store/modules/departmentDetail";
-import type {DepartmentData} from "@/api/info/type";
-import {computed} from "vue";
+import { computed, ref, nextTick } from "vue";
 
+// 获取科室信息
 const departmentStore = useDepartmentStore();
 const departments = computed(() => departmentStore?.departmentInfo);
 
-console.log(departments)
+const currentIndex = ref<number>(0);
+
+// 切换当前科室并滚动到对应的科室标题
+const changeIndex = async (index: number) => {
+  currentIndex.value = index;
+
+  // 等待 DOM 完成更新
+  await nextTick();
+
+  // 选择所有带有 "title1" 类的元素
+  const allTitles = document.querySelectorAll(".title1");
+
+  // 输出调试信息
+  console.log("Current index:", currentIndex.value);
+  console.log("All titles:", allTitles);
+
+  // 确保该 index 对应的元素存在
+  const targetElement = allTitles[currentIndex.value];
+
+  if (targetElement) {
+    console.log("Scrolling to element:", targetElement);
+    targetElement.scrollIntoView({ behavior: "smooth" });
+  } else {
+    console.error("No element found for index:", currentIndex.value);
+  }
+};
 </script>
+
 
 <template>
   <el-row :gutter="20">
     <el-col :span="6">
       <div class="list">
-        <ul v-for="(item, index) in departments" :key="index">
-          <li><el-text>{{item.depname}}</el-text></li>
+        <ul>
+          <li
+              @click="changeIndex(Number(index))"
+              v-for="(department,index) in departments"
+              :key="index"
+              :class="{active: Number(index) == currentIndex }"
+          >
+            <el-text>{{department.depname}}</el-text>
+          </li>
         </ul>
       </div>
     </el-col>
     <el-col :span="18" class="detail-list">
       <div class="detail" v-for="(item, index) in departments" :key="index">
-        <el-text tag="b" size="large" class="title">{{item.depname}}</el-text>
+        <el-text tag="b" size="large" class="title1">{{item.depname}}</el-text>
         <div class="more-clinics">
           <el-row :gutter="20">
             <el-col :span="8" v-for="(child, index) in item.children" :key="index">
@@ -41,6 +74,9 @@ console.log(departments)
   height: 480px;
   background-color: #f5f9fe;
   overflow-y: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
   border-radius: 15px;
 }
 
@@ -52,6 +88,11 @@ ul {
     height: 40px;
     text-align: center;
     line-height: 40px;
+
+    &.active{
+      border-left: 3px solid #588eea;
+      background-color: #fcfcfe;
+    }
   }
   li:hover{
     background-color: #fcfcfe;
@@ -59,20 +100,23 @@ ul {
   }
 }
 .detail-list{
-  height: 540px;
+  max-height: 540px;
   overflow-y: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 .detail{
   margin-top:20px;
   padding:25px;
-  //min-height: 210px;
   background-color: #fafafa;
   border-radius: 15px;
-  .title{
+  overflow-y: auto;
+  .title1{
     display: flex;
     align-items: center;
   }
-  .title:before {
+  .title1:before {
     content:"";
     width: 4px;
     height: 16px;

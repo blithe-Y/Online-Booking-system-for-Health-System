@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import Register from '@/pages/info/register/index.vue'
-import {useRoute} from "vue-router";
-const $route = useRoute()
+import {useRoute, useRouter} from "vue-router";
+const $route = useRoute();
+const $router = useRouter();
 import { onMounted } from "vue";
 import useDetailStore from '@/store/modules/hospitalDetail';
 import useDepartmentStore from "@/store/modules/departmentDetail";
 let detailStore = useDetailStore();
 let departmentStore = useDepartmentStore();
+
+const changeActive = (path:string) => {
+  $router.push({path,query:{hoscode: $route.query.hoscode as string}})
+}
+
 onMounted(()=>{
-  detailStore.getHospitalDetail($route.query.hoscode)
-  departmentStore.getDepartmentDetail($route.query.hoscode)
+
+  detailStore.getHospitalDetail($route.query.hoscode as string)
+  departmentStore.getDepartmentDetail($route.query.hoscode as string)
 
 })
 </script>
@@ -25,9 +32,11 @@ onMounted(()=>{
           <el-menu
               :default-active="$route.path"
               class="el-menu-vertical-demo"
-              :router="true"
           >
-            <el-menu-item index="/info/register">
+            <el-menu-item
+                index="/info/register"
+                @click="changeActive"
+            >
               <template #title>
                 <span>预约挂号</span>
               </template>

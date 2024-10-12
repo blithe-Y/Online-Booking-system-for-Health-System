@@ -59,6 +59,8 @@ export interface DepartmentData {
     children: DepartmentChildren[];
 }
 
-export interface DepartmentObject extends RootObject<DepartmentData> {
+export type Department = DepartmentData[];
+
+export interface DepartmentObject extends RootObject<DepartmentData > {
 
 }
