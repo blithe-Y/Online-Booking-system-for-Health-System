@@ -1,14 +1,37 @@
 <script setup lang="ts">
 import useUserStore from "@/store/modules/user";
-import {ref} from "vue";
+import {ref, computed} from "vue";
+import CountDown from './countdown/index.vue'
 
-const inputPhone = ref('')
-const inputCode = ref('')
+const inputPhone = ref<string>('')
+const inputCode = ref<string>('')
 const userStore = useUserStore();
 let screen = ref<number>(1);
 const loginByWechat = () => {
   screen.value = 1 - screen.value;
 }
+
+const getFlag = (val:boolean) => {
+  flag.value = val;
+}
+
+let isPhone = computed(() =>{
+  const reg = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+  return reg.test(inputPhone.value)
+})
+
+const getCode = async () => {
+  flag.value = true;
+  try{
+    await userStore.getSMSCode(inputPhone.value);
+    inputCode.value = userStore.code;
+  }catch(error){
+
+  }
+
+}
+
+let flag = ref<boolean>(false);
 </script>
 
 <template>
@@ -33,7 +56,10 @@ const loginByWechat = () => {
                   </el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button>获取验证码</el-button>
+                  <el-button :disabled="!isPhone||flag">
+                    <CountDown v-if="flag" :flag="flag" @getFlag="getFlag"/>
+                    <span v-else @click="getCode">获取验证码</span>
+                  </el-button>
                 </el-form-item>
                 <div class="login">
                   <el-button type="primary" style="width: 90%;" disabled>用户登录</el-button>
