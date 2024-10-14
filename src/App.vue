@@ -17,6 +17,7 @@ import {reqHospitalDetail} from "@/api/info";
     </div>
     <Bottom/>
   </div>
+  <Login/>
 </template>
 
 <style scoped>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+import useUserStore from "@/store/modules/user";
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -13,7 +14,7 @@
         <div>
           <p>帮助中心</p>
         </div>
-        <div>
+        <div @click="userStore.visiable = true" class="login">
           <p>登录/注册</p>
         </div>
       </div>
@@ -64,6 +65,12 @@
       p {
         color: dimgray;
       }
+      p:hover{
+        color: #588eea;
+      }
+    }
+    .login {
+      cursor: pointer;
     }
   }
 }

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import useDepartmentStore from "@/store/modules/departmentDetail";
 import { computed, ref, nextTick } from "vue";
+import useUserStore from "@/store/modules/user";
+
+const userStore = useUserStore();
 
 // 获取科室信息
 const departmentStore = useDepartmentStore();
@@ -57,7 +60,7 @@ const changeIndex = async (index: number) => {
         <div class="more-clinics">
           <el-row :gutter="20">
             <el-col :span="8" v-for="(child, index) in item.children" :key="index">
-              <el-text type="info" class="text">{{child.depname}}</el-text>
+              <el-text type="info" class="text" @click="userStore.visiable=true">{{child.depname}}</el-text>
             </el-col>
           </el-row>
         </div>
