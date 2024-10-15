@@ -14,8 +14,25 @@ const userStore = useUserStore();
         <div>
           <p>帮助中心</p>
         </div>
-        <div @click="userStore.visiable = true" class="login">
-          <p>登录/注册</p>
+        <div style="display: flex; align-items: center;">
+          <p
+              @click="userStore.visiable = true"
+              class="login"
+              v-if="!userStore.userInfo.name"
+          >登录/注册</p>
+          <el-dropdown v-else>
+            <p class="el-dropdown-link" style="font-size:16px;">
+              {{userStore.userInfo.name}}
+            </p>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>Action 1</el-dropdown-item>
+                <el-dropdown-item>Action 2</el-dropdown-item>
+                <el-dropdown-item>Action 3</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+
         </div>
       </div>
     </div>

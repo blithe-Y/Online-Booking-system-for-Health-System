@@ -1,12 +1,14 @@
 import {defineStore} from "pinia";
-import type {LoginResponse} from "@/api/login/type";
-import {reqSMSCode} from "@/api/login";
+import type {LoginResponse, UserLoginData, UserLoginResponse} from "@/api/login/type";
+import {reqSMSCode, reqUserLogin} from "@/api/login";
+import type {UserState} from "@/store/modules/interface";
 
 const useUserStore = defineStore("user", {
-    state:() => {
+    state:():UserState => {
         return{
             visiable:false,
-            code:''
+            code:'',
+            userInfo: JSON.parse(localStorage.getItem("userInfo") as string) || {}
         }
     },
     actions:{
@@ -18,6 +20,18 @@ const useUserStore = defineStore("user", {
             }else{
                 return Promise.reject(new Error(result.message));
             }
+        },
+        async userLogin(loginData:any){
+            let result:UserLoginResponse = await reqUserLogin(loginData);
+            if(result.code === 200){
+                this.userInfo = result.data;
+                // 本地存储持久化
+                localStorage.setItem("userInfo",JSON.stringify(this.userInfo));
+                return 'ok';
+            }else{
+                Promise.reject(new Error(result.message));
+            }
+
         }
     },
     getters:{
